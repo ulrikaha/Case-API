@@ -12,23 +12,15 @@ const caseSchema = mongoose.Schema({
     message: {
         type: String,
         required: true
-    }, 
-    _id: {
-        type: String,
-        default: true
-    },
-    createdAt: {
-        type: String,
-        default: true
-    },
-    updatedAt: {
-        type: String,
-        default: true
     },
     status: {
         type: String,
-        default: true
+        default: 1
     }
-})
+    },
+    {
+        timestamps: true
+    }
+)
 
 module.exports = mongoose.model('Case', caseSchema)

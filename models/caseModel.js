@@ -23,5 +23,39 @@ exports.createNewCase = (req, res) => {
 
             })
         })
-        return
+        return    
+}
+
+exports.getAllCases = (req, res) => {
+
+    Case.find()
+        .then(data => {
+            res.status(200).json(data)
+        })
+        .catch(err => {
+            res.status(500).json({
+                message: 'Something went wrong when getting the cases'
+            })
+        })
+
+}
+
+exports.getCase = (req, res) => {
+    
+    Case.findById(req.params.id)
+        .then(data => {
+            if(!data) {
+                res.status(404).json({
+                    message: 'Could not find case'
+                })
+                return
+            }
+            res.status(200).json(data)
+        })
+        .catch(err => {
+                res.status(500).json({
+                    message: 'Something went wrong when getting this case!',
+                    err: err.message
+                })
+        })
 }
