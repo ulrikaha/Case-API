@@ -30,6 +30,8 @@ exports.createNewCase = (req, res) => {
 exports.getAllCases = (req, res) => {
 
     Case.find()
+        .populate('comment')
+        .exec()
         .then(data => {
             res.status(200).json(data)
         })
@@ -45,9 +47,9 @@ exports.getAllCases = (req, res) => {
 exports.getCase = (req, res) => {
     
     Case.findById(req.params.id)
-    .populate('comment')
-    .exec()
-     .then(data => {
+        .populate('comment')
+        .exec()
+        .then(data => {
             if(!data) {
                 res.status(404).json({
                     message: 'Could not find case'
@@ -63,3 +65,4 @@ exports.getCase = (req, res) => {
                 })
         })
 }
+

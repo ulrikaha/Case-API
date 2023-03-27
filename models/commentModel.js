@@ -25,3 +25,18 @@ exports.addCommentToCase = (req, res) => {
         })
         return    
 }
+
+//Find all comments
+exports.getAllComments = (req, res) => {
+
+    Comment.find()
+        .then(data => {
+            res.status(200).json(data)
+        })
+        .catch(err => {
+            res.status(500).json({
+                message: 'Something went wrong when getting the comments'
+            })
+        })
+
+}
