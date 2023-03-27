@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/ulrikaha/gruppuppgift-backend#readme",
   "devDependencies": {
-    "nodemon": "^2.0.21"
+    "nodemon": "^2.0.22"
   },
   "dependencies": {
     "cors": "^2.8.5",
