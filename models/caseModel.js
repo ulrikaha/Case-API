@@ -1,7 +1,7 @@
 const Case = require('../schemas/caseSchema')
 
 
-
+//Create a new case
 exports.createNewCase = (req, res) => {
 
     const{ email, subject, message } = req.body
@@ -26,6 +26,7 @@ exports.createNewCase = (req, res) => {
         return    
 }
 
+//Find all cases
 exports.getAllCases = (req, res) => {
 
     Case.find()
@@ -40,10 +41,13 @@ exports.getAllCases = (req, res) => {
 
 }
 
+//Find a case by id
 exports.getCase = (req, res) => {
     
     Case.findById(req.params.id)
-        .then(data => {
+    .populate('comment')
+    .exec()
+     .then(data => {
             if(!data) {
                 res.status(404).json({
                     message: 'Could not find case'

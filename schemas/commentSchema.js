@@ -1,9 +1,9 @@
-const mongoose = require ('mongoose')
+const mongoose = require('mongoose')
 
 const commentSchema = mongoose.Schema({
     caseId: {
         type: String,
-        require:true// kommer vara id på det här caset (ref:"case = refererar till Case Schemat")
+        required: true
     },
     email: {
         type: String,
@@ -13,7 +13,11 @@ const commentSchema = mongoose.Schema({
         type: String,
         required: true
     },
-
-})
+  
+    },
+    {
+        timestamps: true
+    }
+)
 
 module.exports = mongoose.model('Comment', commentSchema)
