@@ -17,6 +17,7 @@ const caseSchema = mongoose.Schema({
         type: String,
         default: 1
     }
+    
     },
     {
         timestamps: true
