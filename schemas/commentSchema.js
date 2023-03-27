@@ -2,7 +2,8 @@ const mongoose = require('mongoose')
 
 const commentSchema = mongoose.Schema({
     caseId: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Case',
         required: true
     },
     email: {

@@ -14,15 +14,16 @@ const caseSchema = mongoose.Schema({
         required: true
     },
     status: {
-        type: String,
+        type: Number, 
+        ref: 'Status',
         default: 1
     },
-    comment:   { type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }
-      })
-    
-    {
+    comment:  [{
+     type: String , // mongoose.Schema.Types.ObjectId, 
+     ref: 'Comment' 
+    } ]
+      },{
         timestamps: true
-    }
-
-
-module.exports = mongoose.model('Case', caseSchema)
+      })
+   
+   module.exports = mongoose.model('Case', caseSchema)
