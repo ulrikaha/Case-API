@@ -37,7 +37,7 @@ Status.findOne({_id: 1 })
 //Find all cases
 exports.getAllCases = (req, res) => {
         Case.find()
-        .populate('comment') //include comments in the results
+        .populate('comments') //include comments in the results
         .populate('status')   //include status in the results     
         .exec()
         .then(data => {
@@ -54,7 +54,7 @@ exports.getAllCases = (req, res) => {
 //Find a case by id
 exports.getCase = (req, res) => {
     Case.findById(req.params.id)
-    .populate('comment')
+    .populate('comments')
     .populate('status')
        .exec()
      .then(data => {
