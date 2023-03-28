@@ -1,6 +1,7 @@
 const Case = require('../schemas/caseSchema')
 
 
+
 //Create a new case
 exports.createNewCase = (req, res) => {
 
