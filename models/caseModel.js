@@ -2,8 +2,6 @@ const Case = require('../schemas/caseSchema')
 const Comment = require('../schemas/commentSchema')
 const Status = require('../schemas/statusSchema')
 
-
-
 //Create a new case
 exports.createNewCase = (req, res) => {
 const{ email, subject, message } = req.body

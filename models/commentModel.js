@@ -2,7 +2,7 @@
 const Comment = require('../schemas/commentSchema')
 const Case = require('../schemas/caseSchema')
 
-exports.addCommentToCase = (req, res) => {
+exports.addCommentToCase = async (req, res) => {
   const { caseId, email, message } = req.body;
 
   if (!caseId || !email || !message) {
@@ -11,7 +11,14 @@ exports.addCommentToCase = (req, res) => {
     });
     return;
   }
-
+  
+  const valid = await Case.findOne({_id: caseId})
+  if (!valid){
+    res.status(404).json({
+      message: "CaseId must match the _id of an existing case!",
+    });
+    return;
+  }
   Comment.create({ caseId, email, message })
     .then((data) => {
       Case.findByIdAndUpdate(caseId, { $push: { comments: data._id } })
