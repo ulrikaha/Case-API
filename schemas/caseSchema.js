@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 
 const caseSchema = mongoose.Schema({
+    
     email: {
         type: String,
         required: true
@@ -15,15 +16,17 @@ const caseSchema = mongoose.Schema({
     },
     status: {
         type: String,
-        default: 1
+        required:true
     },
-    comment:  { type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }
-    
+    comments: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Comment'
+    }]
+
     },
-
-      {timestamps: true})
-    
-    
-
+    {
+        timestamps: true
+    }
+)
 
 module.exports = mongoose.model('Case', caseSchema)
