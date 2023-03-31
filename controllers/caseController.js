@@ -9,7 +9,7 @@ router.post('/', caseModel.createNewCase)
 router.get('/', caseModel.getAllCases)
 router.get('/:id', caseModel.getCase)
 //UPDATE
-router.put('/:id', caseModel.updateCaseStatus)
+router.put('/:id', caseModel.updateStatusId)
 //DELETE
 
 

@@ -8,17 +8,26 @@ exports.addCommentToCase = async (req, res) => {
   if (!caseId || !email || !message) {
     res.status(400).json({
       message: "CaseId, email and message cant be empty",
-    });
-    return;
+    })
+    return
   }
-  
+
+  if (caseId.length != 24 ){
+    res.status(400).json({
+      message: "Invalid caseId format!",
+    })
+    return
+  }
+
   const valid = await Case.findOne({_id: caseId})
+
   if (!valid){
     res.status(404).json({
       message: "CaseId must match the _id of an existing case!",
-    });
-    return;
+    })
+    return
   }
+
   Comment.create({ caseId, email, message })
     .then((data) => {
       Case.findByIdAndUpdate(caseId, { $push: { comments: data._id } })
@@ -29,8 +38,8 @@ exports.addCommentToCase = async (req, res) => {
           res.status(500).json({
             message: "Something went wrong",
             err: err.message,
-          });
-        });
+          })
+        })
     })
  
-};
+}

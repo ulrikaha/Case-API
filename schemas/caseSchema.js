@@ -15,8 +15,9 @@ const caseSchema = mongoose.Schema({
         required: true
     },
     status: {
-        type: String,
-        required:true
+        type: Number, 
+        ref: 'Status'
+        , default: 1
     },
     comments: [{
         type: mongoose.Schema.Types.ObjectId,

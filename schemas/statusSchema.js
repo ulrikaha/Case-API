@@ -3,20 +3,11 @@ const { Schema } = mongoose;
 
 const statusSchema = new Schema({
     _id: {
-        type: Number,
-        required: true
+        type: Number
     },
-    name: {
-        type: String,
-        required: true
-    },
-    description: {
-        type: String,
-        required: true
-    },
-  
-}, {
-    timestamps: true
+    status: {
+        type: String
+    }
 })
 
 

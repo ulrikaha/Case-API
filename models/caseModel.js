@@ -12,11 +12,7 @@ const{ email, subject, message } = req.body
         })
         return
     }
-
-//ADDED
-Status.findOne({_id: 1 })
-.then(defaultStatus => {
-    Case.create({ email, subject, message, status: defaultStatus})
+    Case.create({ email, subject, message})
         .then(data => {
             res.status(201).json(data)
         })
@@ -27,9 +23,6 @@ Status.findOne({_id: 1 })
 
             })
         })
-          
-})
-
 }
 
 //Find all cases
@@ -54,30 +47,6 @@ exports.getCase = (req, res) => {
     Case.findById(req.params.id)
     .populate('comments')
     .populate('status')
-       .exec()
-     .then(data => {
-            if(!data) {
-                res.status(404).json({
-                    message: 'Could not find case'
-                })
-                return
-            }
-            res.status(200).json(data)
-        })
-        .catch(err => {
-                res.status(500).json({
-                    message: 'Something went wrong when getting this case!',
-                    err: err.message
-                })
-        })
-}
-
-
-//Update a case status
-exports.updateCaseStatus = (req, res) => {
-    Case.findByIdAndUpdate(req.params.id, req.body, {new: true})
-    .populate('comment')
-    .populate ('status')
     .exec()
     .then(data => {
         if(!data) {
@@ -88,13 +57,32 @@ exports.updateCaseStatus = (req, res) => {
         }
         res.status(200).json(data)
         })
-    
-    .catch(err => {
-        res.status(500).json({
-            message: 'Something went wrong when updating this case!',
-            err: err.message
+        .catch(err => {
+                res.status(500).json({
+                    message: 'Something went wrong when getting this case!',
+                    err: err.message
+                })
         })
-    })
 }
 
+//Update status on a specific case
+exports.updateStatusId = (req, res) => {
+    const {statusId} = req.body
+    if(!statusId){
+        res.status(400).json({message: 'You need to enter a statusId'})
+        return
+    }
+    if(statusId < 1 || statusId > 3){
+        res.status(404).json({message: 'This statusId does not exist'})
+        return
+    }
+    Case.findByIdAndUpdate(req.params.id, {status: statusId}, {new: true}) 
+    .then((data) => {
+        Case.findById(statusId, {$push: {status: data._id}})
+        res.status(200).json(data)
+    })
+    .catch(err => {
+        res.status(404).json({message: 'Something went wrong when finding the case!', err: err.message})
 
+    })
+}
